@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct ReflectionApp: App {
+struct JournalApp: App {
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
