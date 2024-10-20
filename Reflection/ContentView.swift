@@ -23,7 +23,7 @@ struct ContentView: View {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
-                VStack {
+                VStack(alignment: .leading) {
                     searchBar
                     
                     List {
@@ -36,13 +36,15 @@ struct ContentView: View {
                                     .listRowBackground(Color(red: 28/255, green: 28/255, blue: 30/255))
                                     .padding(8)
                                     .cornerRadius(20)
+//                                    .listRowSeparator(.fill)
                                 }
                               
                         
                             }
                         }
                     }
-                    .listStyle(PlainListStyle())
+//                    .listStyle(PlainListStyle())
+                    .environment(\.defaultMinListRowHeight, 10)
                     
                 }
             }
