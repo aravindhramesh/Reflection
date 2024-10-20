@@ -60,9 +60,11 @@ struct ContentView: View {
                             .background(Color.blue)
                             .clipShape(Circle())
                             .foregroundColor(.white)
+                            
                     }
                 }
             }
+//            .toolbarBackground(.hidden, for: .navigationBar)
             .sheet(isPresented: $isNewEntryViewPresented) {
                 NewEntryView(dataManager: dataManager)
             }
@@ -90,15 +92,41 @@ struct ContentView: View {
     }
     
     private var groupedEntries: [(Date, [JournalEntry])] {
-        let filteredEntries = dataManager.entries.filter { entry in
-            searchText.isEmpty || entry.content?.localizedCaseInsensitiveContains(searchText) == true
+            let filteredEntries = dataManager.entries.filter { entry in
+                if searchText.isEmpty {
+                    return true
+                }
+                
+                let contentMatch = entry.content?.localizedCaseInsensitiveContains(searchText) ?? false
+                let dateMatch = isDateMatch(entry: entry, searchText: searchText)
+                
+                return contentMatch || dateMatch
+            }
+            
+            let grouped = Dictionary(grouping: filteredEntries) { entry in
+                Calendar.current.startOfDay(for: entry.date ?? Date())
+            }
+            
+            return grouped.sorted { $0.key > $1.key }
         }
         
-        let grouped = Dictionary(grouping: filteredEntries) { entry in
-            Calendar.current.startOfDay(for: entry.date ?? Date())
+        private func isDateMatch(entry: JournalEntry, searchText: String) -> Bool {
+            guard let entryDate = entry.date else { return false }
+            
+            // Check if the search text matches the formatted date
+            let formattedDate = JournalDateFormatter.shared.formatDate(entryDate)
+            if formattedDate.localizedCaseInsensitiveContains(searchText) {
+                return true
+            }
+            
+            // Check if the search text is a valid date and matches the entry date
+            if let searchDate = JournalDateFormatter.shared.parseSearchDate(searchText) {
+                let calendar = Calendar.current
+                return calendar.isDate(entryDate, inSameDayAs: searchDate)
+            }
+            
+            return false
         }
-        
-        return grouped.sorted { $0.key > $1.key }
-    }
+    
 }
 

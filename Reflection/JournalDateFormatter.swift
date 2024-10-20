@@ -12,6 +12,7 @@ struct JournalDateFormatter {
     
     private let dateFormatter: DateFormatter
     private let timeFormatter: DateFormatter
+    private let searchDateFormatter: DateFormatter
     
     private init() {
         dateFormatter = DateFormatter()
@@ -19,6 +20,9 @@ struct JournalDateFormatter {
         
         timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "h:mm a"
+        
+        searchDateFormatter = DateFormatter()
+        searchDateFormatter.dateFormat = "d MMM yyyy"
     }
     
     func formatDate(_ date: Date) -> String {
@@ -27,5 +31,9 @@ struct JournalDateFormatter {
     
     func formatTime(_ date: Date) -> String {
         return timeFormatter.string(from: date)
+    }
+    
+    func parseSearchDate(_ dateString: String) -> Date? {
+        return searchDateFormatter.date(from: dateString)
     }
 }
