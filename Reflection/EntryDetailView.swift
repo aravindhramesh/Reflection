@@ -21,6 +21,7 @@ struct EntryDetailView: View {
                    
                 }
                 .font(.body)
+                .foregroundColor(.secondary)
                 
                 
                 Text(entry.content ?? "")

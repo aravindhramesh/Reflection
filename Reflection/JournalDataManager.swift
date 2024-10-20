@@ -33,11 +33,13 @@ class JournalDataManager: ObservableObject {
         saveContext()
     }
     
-    func deleteEntry(at offsets: IndexSet) {
-        offsets.map { entries[$0] }.forEach(context.delete)
-        entries.remove(atOffsets: offsets)
-        saveContext()
-    }
+    func deleteEntry(_ entry: JournalEntry) {
+            context.delete(entry)
+            if let index = entries.firstIndex(where: { $0.id == entry.id }) {
+                entries.remove(at: index)
+            }
+            saveContext()
+        }
     
     private func saveContext() {
         do {
