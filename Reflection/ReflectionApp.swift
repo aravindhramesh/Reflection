@@ -15,6 +15,7 @@ struct JournalApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .journalAppearance()
         }
     }
 }

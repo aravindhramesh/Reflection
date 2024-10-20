@@ -29,7 +29,7 @@ struct ContentView: View {
                 }
                 .onDelete(perform: dataManager.deleteEntry)
             }
-            .navigationTitle("Thoughts")
+            .navigationTitle("Reflections")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
