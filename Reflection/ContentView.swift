@@ -12,32 +12,42 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject private var dataManager: JournalDataManager
     @State private var isNewEntryViewPresented = false
-    @State private var isSearchViewPresented = false
+    @State private var searchText = ""
 
-    init() {
-        let context = PersistenceController.shared.container.viewContext
+    init(context: NSManagedObjectContext) {
         _dataManager = StateObject(wrappedValue: JournalDataManager(context: context))
     }
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(dataManager.entries) { entry in
-                    NavigationLink(destination: EntryDetailView(entry: entry)) {
-                        EntryRowView(entry: entry)
+            ZStack {
+                Color.black.edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    searchBar
+                    
+                    List {
+                        ForEach(groupedEntries, id: \.0) { date, entries in
+                            Section(header: DateHeaderView(date: date)) {
+                                ForEach(entries) { entry in
+                                    NavigationLink(destination: EntryDetailView(entry: entry)) {
+                                        EntryRowView(entry: entry)
+                                    }
+                                    .listRowBackground(Color(red: 28/255, green: 28/255, blue: 30/255))
+                                    .padding(8)
+                                    .cornerRadius(20)
+                                }
+                              
+                        
+                            }
+                        }
                     }
+                    .listStyle(PlainListStyle())
+                    
                 }
-                .onDelete(perform: dataManager.deleteEntry)
             }
             .navigationTitle("Reflections")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        isSearchViewPresented = true
-                    }) {
-                        Image(systemName: "magnifyingglass")
-                    }
-                }
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
                         isNewEntryViewPresented = true
@@ -54,9 +64,39 @@ struct ContentView: View {
             .sheet(isPresented: $isNewEntryViewPresented) {
                 NewEntryView(dataManager: dataManager)
             }
-            .sheet(isPresented: $isSearchViewPresented) {
-                SearchView(dataManager: dataManager)
+        }
+        .preferredColorScheme(.dark)
+    }
+    
+    private var searchBar: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.secondary)
+            TextField("Search", text: $searchText)
+                .foregroundColor(.primary)
+            if !searchText.isEmpty {
+                Button(action: { searchText = "" }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.secondary)
+                }
             }
         }
+        .padding(8)
+        .background(Color(.systemGray6))
+        .cornerRadius(10)
+        .padding(.horizontal)
+    }
+    
+    private var groupedEntries: [(Date, [JournalEntry])] {
+        let filteredEntries = dataManager.entries.filter { entry in
+            searchText.isEmpty || entry.content?.localizedCaseInsensitiveContains(searchText) == true
+        }
+        
+        let grouped = Dictionary(grouping: filteredEntries) { entry in
+            Calendar.current.startOfDay(for: entry.date ?? Date())
+        }
+        
+        return grouped.sorted { $0.key > $1.key }
     }
 }
+

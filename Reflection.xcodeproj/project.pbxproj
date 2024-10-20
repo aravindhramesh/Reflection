@@ -21,6 +21,7 @@
 		CA87AF0B2CC476510060E61B /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA87AF0A2CC476510060E61B /* EntryDetailView.swift */; };
 		CA87AF0D2CC4766A0060E61B /* NewEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA87AF0C2CC4766A0060E61B /* NewEntryView.swift */; };
 		CA87AF0F2CC478B30060E61B /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA87AF0E2CC478B30060E61B /* JournalEntry.swift */; };
+		CA87AF112CC486450060E61B /* DateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA87AF102CC486450060E61B /* DateHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		CA87AF0A2CC476510060E61B /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
 		CA87AF0C2CC4766A0060E61B /* NewEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntryView.swift; sourceTree = "<group>"; };
 		CA87AF0E2CC478B30060E61B /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
+		CA87AF102CC486450060E61B /* DateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +57,6 @@
 		CA87AEDD2CC474950060E61B = {
 			isa = PBXGroup;
 			children = (
-				CA87AF0E2CC478B30060E61B /* JournalEntry.swift */,
 				CA87AEE82CC474950060E61B /* Reflection */,
 				CA87AEE72CC474950060E61B /* Products */,
 			);
@@ -72,6 +73,8 @@
 		CA87AEE82CC474950060E61B /* Reflection */ = {
 			isa = PBXGroup;
 			children = (
+				CA87AF102CC486450060E61B /* DateHeaderView.swift */,
+				CA87AF0E2CC478B30060E61B /* JournalEntry.swift */,
 				CA87AF0C2CC4766A0060E61B /* NewEntryView.swift */,
 				CA87AF0A2CC476510060E61B /* EntryDetailView.swift */,
 				CA87AF042CC475BE0060E61B /* JournalDataManager.swift */,
@@ -176,6 +179,7 @@
 				CA87AEFF2CC4755E0060E61B /* Theme.swift in Sources */,
 				CA87AF052CC475BE0060E61B /* JournalDataManager.swift in Sources */,
 				CA87AEF62CC474970060E61B /* Reflection.xcdatamodeld in Sources */,
+				CA87AF112CC486450060E61B /* DateHeaderView.swift in Sources */,
 				CA87AF0B2CC476510060E61B /* EntryDetailView.swift in Sources */,
 				CA87AF0F2CC478B30060E61B /* JournalEntry.swift in Sources */,
 				CA87AEEA2CC474950060E61B /* ReflectionApp.swift in Sources */,
@@ -312,6 +316,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Reflection/Preview Content\"";
+				DEVELOPMENT_TEAM = 68NL5GF6B7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -340,6 +345,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Reflection/Preview Content\"";
+				DEVELOPMENT_TEAM = 68NL5GF6B7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

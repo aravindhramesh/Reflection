@@ -4,20 +4,34 @@
 //
 //  Created by Aravindh Ramesh on 19/10/2024.
 //
-
 import SwiftUI
-import CoreData
 
 struct EntryRowView: View {
     let entry: JournalEntry
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(JournalDateFormatter.shared.formatDate(entry.date ?? Date()))
-                .font(.headline)
-            Text(entry.content ?? "")
-                .lineLimit(2)
-                .font(.subheadline)
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(formatTime(entry.date ?? Date()))
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.secondary)
+                Text(entry.content ?? "")
+                    .font(.system(size: 16))
+                    .foregroundColor(.primary)
+                    .lineLimit(2)
+            }
+            Spacer()
+//            Image(systemName: "chevron.right")
+//                .foregroundColor(.secondary)
         }
+//        .padding(16)
+//        .background(Color(UIColor.systemGray6))
+//        .cornerRadius(12)
+    }
+    
+    private func formatTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        return formatter.string(from: date).uppercased()
     }
 }

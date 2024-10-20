@@ -18,15 +18,17 @@ struct EntryDetailView: View {
                     Text(JournalDateFormatter.shared.formatDate(entry.date ?? Date()))
                     Spacer()
                     Text(JournalDateFormatter.shared.formatTime(entry.date ?? Date()))
+                   
                 }
-                .font(.headline)
+                .font(.body)
+                
                 
                 Text(entry.content ?? "")
                     .font(.body)
             }
             .padding()
         }
-        .navigationTitle(JournalDateFormatter.shared.formatDate(entry.date ?? Date()))
+//        .navigationTitle(JournalDateFormatter.shared.formatDate(entry.date ?? Date()))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
