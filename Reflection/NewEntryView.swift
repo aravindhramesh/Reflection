@@ -12,7 +12,8 @@ struct NewEntryView: View {
     @ObservedObject var dataManager: JournalDataManager
     @State private var entryContent = ""
     @Environment(\.presentationMode) var presentationMode
-
+    @FocusState private var isTextEditorFocused: Bool  // New focus state
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -25,6 +26,7 @@ struct NewEntryView: View {
                 
                 TextEditor(text: $entryContent)
                     .padding()
+                    .focused($isTextEditorFocused)  // Bind the focus state
             }
             .navigationTitle("New Entry")
             .navigationBarTitleDisplayMode(.inline)
@@ -40,6 +42,11 @@ struct NewEntryView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                     .disabled(entryContent.isEmpty)
+                }
+            }
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    self.isTextEditorFocused = true
                 }
             }
         }
